@@ -19,12 +19,12 @@
       --paper: #fffdf9;
       --ink: #5b3a2e;
       --pink: #fb7185;
-      --pink-light: #fecdd3;
+      --pink-dark: #e11d48;
       --green-dark: #166534;
       --green: #16a34a;
       --green-light: #4ade80;
       --shadow: 0 28px 70px rgba(0, 0, 0, 0.14);
-      --message-font: "Segoe Script", "Comic Sans MS", cursive;
+      --font: "Segoe Script", "Comic Sans MS", cursive;
     }
 
     body {
@@ -37,9 +37,9 @@
         var(--bg3) 100%
       );
       display: flex;
-      align-items: center;
       justify-content: center;
-      font-family: var(--message-font);
+      align-items: center;
+      font-family: var(--font);
     }
 
     .scene {
@@ -47,24 +47,23 @@
       width: 100%;
       min-height: 100vh;
       display: flex;
-      align-items: center;
       justify-content: center;
-      padding: 28px 0;
+      align-items: center;
+      padding: 28px 0 120px;
     }
 
-    /* ----------------------------
-       CUTE ROUND MUSIC BUTTON
-    ----------------------------- */
+    /* MUSIC BUTTON */
+
     .audio-btn {
       position: fixed;
       top: 18px;
       left: 18px;
       width: 62px;
       height: 62px;
+      z-index: 30;
       border: 0;
       border-radius: 50%;
       cursor: pointer;
-      z-index: 20;
       display: grid;
       place-items: center;
       background: linear-gradient(180deg, #ffffff, #ffe4ec);
@@ -81,13 +80,10 @@
     .audio-btn svg {
       width: 33px;
       height: 33px;
-      overflow: visible;
     }
 
     .speaker-main {
       fill: var(--pink);
-      transition: transform 0.25s ease;
-      transform-origin: center;
     }
 
     .sound-line {
@@ -95,7 +91,7 @@
       stroke-width: 1.8;
       stroke-linecap: round;
       opacity: 0;
-      transform: scaleX(0.25);
+      transform: scaleX(0.2);
       transform-origin: center;
       transition: opacity 0.25s ease, transform 0.25s ease;
     }
@@ -105,9 +101,7 @@
       stroke-width: 2;
       stroke-linecap: round;
       opacity: 1;
-      transform: scale(1);
-      transform-origin: center;
-      transition: opacity 0.25s ease, transform 0.25s ease;
+      transition: opacity 0.25s ease;
     }
 
     .audio-btn.playing .sound-line {
@@ -117,24 +111,18 @@
 
     .audio-btn.playing .mute-cross {
       opacity: 0;
-      transform: scale(0.65) rotate(-12deg);
     }
 
-    .audio-btn.playing .speaker-main {
-      transform: translateX(-1px) scale(1.03);
-    }
+    /* LOADER */
 
-    /* ----------------------------
-       LOADING FLOWER
-    ----------------------------- */
     .loader {
       position: fixed;
       inset: 0;
-      z-index: 10;
+      z-index: 15;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       gap: 18px;
       transition: opacity 0.7s ease, transform 0.7s ease;
       pointer-events: none;
@@ -173,8 +161,8 @@
 
     .loading-petal.center {
       left: 50%;
-      transform: translateX(-50%);
       z-index: 3;
+      transform: translateX(-50%);
     }
 
     .loading-petal.left {
@@ -218,10 +206,9 @@
     }
 
     .loading-text {
-      font-family: var(--message-font);
+      color: var(--ink);
       font-size: 19px;
       font-style: italic;
-      color: var(--ink);
       letter-spacing: 1px;
     }
 
@@ -230,13 +217,12 @@
       animation: loadingDots 1.2s steps(4, end) infinite;
     }
 
-    /* ----------------------------
-       NOTEBOOK + BOTTOM GARDEN
-    ----------------------------- */
+    /* NOTEBOOK */
+
     .paper-wrap {
       position: relative;
       width: min(900px, 92vw);
-      padding-bottom: 92px;
+      padding-bottom: 115px;
       perspective: 1400px;
       visibility: hidden;
       opacity: 0;
@@ -251,9 +237,8 @@
       position: relative;
       z-index: 2;
       min-height: 540px;
-      overflow: visible;
-      border-radius: 28px;
       padding: 34px 34px 34px 56px;
+      border-radius: 28px;
       background:
         repeating-linear-gradient(
           to bottom,
@@ -277,7 +262,7 @@
     .left-info,
     .typed,
     .name-tag {
-      font-family: var(--message-font);
+      font-family: var(--font);
       font-style: italic;
       color: var(--ink);
     }
@@ -304,8 +289,8 @@
       inset: 0;
       z-index: 3;
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       padding: 125px 46px 55px;
     }
 
@@ -328,29 +313,27 @@
       animation: blink 0.8s step-end infinite;
     }
 
-    /* Static bottom name */
     .name-tag {
       position: absolute;
       left: 50%;
       bottom: -32px;
-      z-index: 7;
+      z-index: 8;
       transform: translateX(-50%);
       font-size: 18px;
       opacity: 0.5;
-      white-space: nowrap;
       pointer-events: none;
+      white-space: nowrap;
     }
 
-    /* ----------------------------
-       BOTTOM GRASS
-    ----------------------------- */
+    /* FULLER BOTTOM GRASS */
+
     .bottom-garden {
       position: absolute;
-      z-index: 5;
-      left: 0;
-      right: 0;
+      left: -8px;
+      right: -8px;
       bottom: 0;
-      height: 92px;
+      height: 115px;
+      z-index: 5;
       pointer-events: none;
     }
 
@@ -359,37 +342,57 @@
       left: 0;
       right: 0;
       bottom: 0;
-      height: 42px;
+      height: 60px;
       display: flex;
       align-items: flex-end;
       overflow: hidden;
-      padding: 0 8px;
+      padding: 0 3px;
     }
 
     .bottom-blade {
+      position: relative;
       flex: 0 0 auto;
-      width: 5px;
-      margin: 0 1px;
-      border-radius: 100% 100% 0 0;
+      width: 6px;
+      height: 42px;
+      margin: 0 0.5px;
       background: linear-gradient(
-        to top,
-        var(--green-dark),
-        var(--green) 66%,
-        var(--green-light)
+        105deg,
+        #14532d 0%,
+        #16a34a 48%,
+        #86efac 100%
+      );
+      clip-path: polygon(
+        50% 0%,
+        68% 13%,
+        86% 34%,
+        100% 100%,
+        0% 100%,
+        14% 34%,
+        32% 13%
       );
       transform-origin: bottom center;
-      animation: grassWave 4.2s ease-in-out infinite;
+      animation: grassSmoothWave 4.5s ease-in-out infinite;
     }
 
-    /* ----------------------------
-       LEFT SUNFLOWER
-    ----------------------------- */
+    .bottom-blade::after {
+      content: "";
+      position: absolute;
+      left: 3px;
+      top: 3px;
+      width: 1px;
+      height: 88%;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    /* SLIGHTLY BIGGER LEFT FLOWER */
+
     .bottom-sunflower {
       position: absolute;
-      left: 23px;
-      bottom: 25px;
-      width: 62px;
-      height: 91px;
+      left: 24px;
+      bottom: 30px;
+      width: 72px;
+      height: 106px;
       transform-origin: bottom center;
       animation: sunflowerWave 4.8s ease-in-out infinite;
       filter: drop-shadow(0 7px 8px rgba(0, 0, 0, 0.11));
@@ -399,8 +402,8 @@
       position: absolute;
       top: 0;
       left: 50%;
-      width: 56px;
-      height: 56px;
+      width: 65px;
+      height: 65px;
       transform: translateX(-50%);
       border-radius: 50%;
       background: conic-gradient(
@@ -433,11 +436,11 @@
 
     .sunflower-center {
       position: absolute;
-      top: 16px;
+      top: 19px;
       left: 50%;
       z-index: 2;
-      width: 25px;
-      height: 25px;
+      width: 29px;
+      height: 29px;
       transform: translateX(-50%);
       border-radius: 50%;
       background: radial-gradient(circle at 35% 35%, #a16207, #451a03);
@@ -445,10 +448,10 @@
 
     .sunflower-stem {
       position: absolute;
-      top: 50px;
+      top: 58px;
       left: 50%;
-      width: 7px;
-      height: 43px;
+      width: 9px;
+      height: 50px;
       transform: translateX(-50%);
       border-radius: 999px;
       background: linear-gradient(to bottom, #4ade80, #166534);
@@ -456,9 +459,9 @@
 
     .sunflower-leaf {
       position: absolute;
-      top: 67px;
-      width: 22px;
-      height: 13px;
+      top: 77px;
+      width: 27px;
+      height: 15px;
       border-radius: 100% 0 100% 0;
       background: linear-gradient(to bottom, #86efac, #16a34a);
     }
@@ -471,6 +474,32 @@
     .leaf-right {
       right: 5px;
       transform: scaleX(-1) rotate(-30deg);
+    }
+
+    /* LIGHT GREEN GRASS BORDER BUTTON */
+
+    .first-next {
+      position: absolute;
+      left: 50%;
+      bottom: 20px;
+      z-index: 12;
+      transform: translateX(-50%);
+      border: 3px solid #86efac;
+      border-radius: 999px;
+      padding: 11px 26px;
+      color: #14532d;
+      background: linear-gradient(180deg, #dcfce7, #bbf7d0);
+      font-family: var(--font);
+      font-style: italic;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow:
+        0 7px 18px rgba(22, 101, 52, 0.18),
+        inset 0 2px 0 rgba(255, 255, 255, 0.8);
+    }
+
+    .first-next:active {
+      transform: translateX(-50%) scale(0.94);
     }
 
     @keyframes loaderFloat {
@@ -501,13 +530,13 @@
       }
     }
 
-    @keyframes grassWave {
+    @keyframes grassSmoothWave {
       0%, 100% {
-        transform: translateY(0);
+        transform: rotate(-1deg) scaleY(1);
       }
 
       50% {
-        transform: translateY(-2px);
+        transform: rotate(2deg) scaleY(1.04);
       }
     }
 
@@ -517,42 +546,34 @@
       }
 
       50% {
-        transform: rotate(4deg);
+        transform: rotate(5deg);
       }
     }
 
     @keyframes blink {
-      50% {
-        opacity: 0;
-      }
+      50% { opacity: 0; }
     }
 
-    @media (max-width: 560px) {
-      .paper-wrap {
-        width: 92vw;
-        padding-bottom: 86px;
-      }
-
+    @media (max-width: 600px) {
       .paper {
         min-height: 465px;
-        border-radius: 24px;
         padding: 25px 20px 25px 38px;
       }
 
       .date {
-        top: 24px;
+        top: 23px;
         right: 20px;
         font-size: 13px;
       }
 
       .left-info {
-        top: 23px;
+        top: 22px;
         left: 38px;
         font-size: 14px;
       }
 
       .message-box {
-        padding: 100px 30px 44px;
+        padding: 100px 28px 45px;
       }
 
       .typed {
@@ -560,19 +581,17 @@
       }
 
       .bottom-sunflower {
-        left: 13px;
-        transform: scale(0.86);
+        left: 10px;
+        transform: scale(0.84);
         transform-origin: bottom left;
       }
 
-      .name-tag {
-        bottom: -29px;
-        font-size: 16px;
+      .bottom-garden {
+        height: 92px;
       }
 
-      .audio-btn {
-        width: 58px;
-        height: 58px;
+      .bottom-grass {
+        height: 48px;
       }
     }
   </style>
@@ -581,18 +600,18 @@
 <body>
   <button class="audio-btn playing" id="audioBtn" aria-label="Mute music">
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        class="speaker-main"
-        d="M5 10v4h4l5 4V6l-5 4H5Z"
-      />
+      <path class="speaker-main" d="M5 10v4h4l5 4V6l-5 4H5Z" />
+
       <path
         class="sound-line"
         d="M16 9.5C17.5 10.5 18.1 11.4 18.1 12C18.1 12.6 17.5 13.5 16 14.5"
       />
+
       <path
         class="sound-line"
         d="M18.4 7.4C20.4 8.9 21.3 10.4 21.3 12C21.3 13.6 20.4 15.1 18.4 16.6"
       />
+
       <path
         class="mute-cross"
         d="M15.2 8.8L21 14.6M21 8.8L15.2 14.6"
@@ -600,7 +619,6 @@
     </svg>
   </button>
 
-  <!-- Put website.mp3 in the same folder as this HTML file -->
   <audio id="bgAudio" autoplay loop preload="auto" playsinline>
     <source src="website.mp3" type="audio/mpeg" />
   </audio>
@@ -651,16 +669,23 @@
           <div class="sunflower-leaf leaf-right"></div>
         </div>
       </div>
+
+      <button class="first-next" id="firstNext">
+        Next →
+      </button>
     </section>
   </main>
 
   <script>
     const audio = document.getElementById("bgAudio");
     const audioBtn = document.getElementById("audioBtn");
-    const grass = document.getElementById("bottomGrass");
+
     const loader = document.getElementById("loader");
     const paperWrap = document.getElementById("paperWrap");
     const paper = document.getElementById("paper");
+    const grass = document.getElementById("bottomGrass");
+
+    const firstNext = document.getElementById("firstNext");
     const dateText = document.getElementById("dateText");
     const typedMessage = document.getElementById("typedMessage");
 
@@ -670,22 +695,46 @@
       day: "numeric"
     });
 
-    for (let i = 0; i < 90; i++) {
+    /* Fuller grass with more consistent sizes */
+    for (let i = 0; i < 132; i++) {
       const blade = document.createElement("div");
 
       blade.className = "bottom-blade";
-      blade.style.height = `${15 + (i % 6) * 3}px`;
-      blade.style.animationDelay = `${(i % 12) * 0.09}s`;
+      blade.style.height = `${37 + (i % 4) * 3}px`;
+      blade.style.animationDelay = `${(i % 22) * 0.055}s`;
 
       grass.appendChild(blade);
     }
 
+    const message =
+      " hi isha sorry for my mistakes before alam kong nasaktan kita dati, i'm apologizing what we have before pero sana mapatawad moko and mabigyan ng pagakakataong ligawan ka ulit, hindi ko mapapangako pero gagawin ko best ko and alam kong way not to hurt you, kung pwede pa sana pwede pa, isha can i court you again?";
+
+    function typeMessage() {
+      const cursor = typedMessage.querySelector(".cursor");
+      let index = 0;
+
+      function nextLetter() {
+        if (index < message.length) {
+          typedMessage.insertBefore(
+            document.createTextNode(message.charAt(index)),
+            cursor
+          );
+
+          index++;
+          setTimeout(nextLetter, 45);
+        }
+      }
+
+      nextLetter();
+    }
+
     function updateAudioButton() {
-      const isMuted = audio.muted || audio.volume === 0;
-      audioBtn.classList.toggle("playing", !isMuted);
+      const muted = audio.muted || audio.volume === 0;
+
+      audioBtn.classList.toggle("playing", !muted);
       audioBtn.setAttribute(
         "aria-label",
-        isMuted ? "Unmute music" : "Mute music"
+        muted ? "Unmute music" : "Mute music"
       );
     }
 
@@ -717,31 +766,20 @@
     });
 
     audio.addEventListener("play", updateAudioButton);
+    audio.addEventListener("pause", updateAudioButton);
     audio.addEventListener("volumechange", updateAudioButton);
 
     document.addEventListener("DOMContentLoaded", startMusic);
     window.addEventListener("load", startMusic);
+    window.addEventListener("pointerdown", startMusic, { once: true });
 
-    const message = "Hi cutie, this little paper is unfolding just for you.";
-
-    function typeMessage() {
-      const cursor = typedMessage.querySelector(".cursor");
-      let index = 0;
-
-      function typeNextLetter() {
-        if (index < message.length) {
-          typedMessage.insertBefore(
-            document.createTextNode(message.charAt(index)),
-            cursor
-          );
-
-          index += 1;
-          setTimeout(typeNextLetter, 45);
-        }
-      }
-
-      typeNextLetter();
-    }
+    /*
+      There is no third page anymore.
+      The first Next button opens next.html directly.
+    */
+    firstNext.addEventListener("click", () => {
+      window.location.href = "next.html";
+    });
 
     setTimeout(() => {
       loader.classList.add("hide");
@@ -755,4 +793,4 @@
     }, 2800);
   </script>
 </body>
-</html>
+  </html>
